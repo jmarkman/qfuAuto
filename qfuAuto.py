@@ -76,7 +76,7 @@ p.hotkey('altleft', 'f4')
 wordOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft Office\\Office14\\WINWORD.exe')
 time.sleep(2)
 p.hotkey('ctrlleft', 'o')
-fe('C:\\Users\\jmarkman\\Documents')
+fe('[filepath]')
 locate(imgPath('wordOpenDoc.png'))
 p.typewrite('Mail Merge') 
 
