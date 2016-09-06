@@ -10,7 +10,7 @@ import os
 
 p.PAUSE = 1
 # This is the global pause interval between pyautogui commands; 1 is equal to 1 second, 2 equals 2 seconds, and so on. 
-#Documentation says this can't go below 1; no reason to have it go below 1, anyway. 
+# Documentation says this can't go below 1; no reason to have it go below 1, anyway. 
 
 l = 'left' 
 # We're setting the letter 'l' equal to the string 'left' for the clk function. 
