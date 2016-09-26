@@ -34,7 +34,7 @@ def locate(img):
 	clk(btnX,btnY,l)	
 	
 sqlOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft SQL Server\\120\\Tools\\Binn\\ManagementStudio\\Ssms.exe')
-time.sleep(15)
+time.sleep(25)
 locate(imgPath('connect.png'))
 
 p.hotkey('ctrlleft', 'o')
