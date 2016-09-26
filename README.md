@@ -9,6 +9,7 @@ I'm trying to deprecate this script in favor of one that can make the database q
 
 # Script issues
 *9/26/2016*
+
 There's a lot that I don't like about this although it "works" and does the job its supposed to:
 +It's hardcoded
    I did a lot of research in terms of breaking away from hardcoded filepaths, but it ended up being more troubles than it was worth to apply os.path commands to most of the filepaths for program files and Excel file storage. I'd also have to deal with the documents within, although I think I can overall improve this by shoving all of the necessary things into a folder like I did for all the elements.
