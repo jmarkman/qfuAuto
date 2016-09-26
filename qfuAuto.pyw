@@ -37,6 +37,7 @@ sqlOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft SQL Server\\120\\
 time.sleep(25)
 locate(imgPath('connect.png'))
 
+time.sleep(2)
 p.hotkey('ctrlleft', 'o')
 
 time.sleep(2)
