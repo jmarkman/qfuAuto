@@ -75,7 +75,7 @@ p.hotkey('altleft', 'f4')
 
 
 wordOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft Office\\Office14\\WINWORD.exe')
-time.sleep(2)
+time.sleep(5)
 p.hotkey('ctrlleft', 'o')
 fe('[filepath]')
 locate(imgPath('wordOpenDoc.png'))
