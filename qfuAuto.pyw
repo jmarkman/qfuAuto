@@ -1,15 +1,12 @@
 #! python3
 import pyautogui as p
-import time
-import datetime
-import subprocess
-import sys
-import os
+import time, datetime, subprocess, sys, os
 
 p.PAUSE = 1
 l = 'left'
 insDate = datetime.date.today()
 scriptHome = sys.path[0]
+relPath = os.path.expanduser('~')
 
 def clk(x,y,b):
 	try:
@@ -17,7 +14,7 @@ def clk(x,y,b):
 	except FileNotFoundError:
 		pass
 		
-def fe(path):
+def explorer(path):
 	time.sleep(2)
 	p.press('f4')
 	p.hotkey('ctrlleft', 'a', 'del')
@@ -53,7 +50,7 @@ p.hotkey('ctrlleft', 'shift', 'c')
 p.hotkey('altleft', 'f4')
 
 xlOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft Office\\Office14\\EXCEL.exe')
-time.sleep(2)
+time.sleep(8)
 p.hotkey('ctrlleft', 'v')
 p.press('up')
 
@@ -67,17 +64,16 @@ locate(imgPath('okSmall.png'))
 time.sleep(2)
 
 p.hotkey('ctrlleft', 's')
-fe('[filepath]')
+explorer(relPath + '\\Documents\\Quote Follow Ups Archive')
 locate(imgPath('excelFileName.png'))
 p.typewrite('Quote Follow Up for ' + insDate.strftime('%m-%d-%Y'))
 p.press('enter')
 p.hotkey('altleft', 'f4')
 
-
 wordOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft Office\\Office14\\WINWORD.exe')
-time.sleep(5)
+time.sleep(8)
 p.hotkey('ctrlleft', 'o')
-fe('[filepath]')
+explorer(relPath + '\\Documents')
 locate(imgPath('wordOpenDoc.png'))
 p.typewrite('Mail Merge') 
 
@@ -86,7 +82,7 @@ locate(imgPath('wordYes.png'))
 locate(imgPath('mailings.png'))
 locate(imgPath('selectTo.png'))
 locate(imgPath('useList.png'))
-fe('[filepath]')
+explorer(relPath + '\\Documents\\Quote Follow Ups Archive')
 locate(imgPath('listFileName.png'))	
 p.typewrite('Quote Follow Up for ' + insDate.strftime('%m-%d-%Y')) 
 p.press('enter')
@@ -100,4 +96,4 @@ locate(imgPath('mergeOk.png'))
 
 time.sleep(25)
 p.hotkey('ctrlleft', 's')
-p.hotkey('altleft', 'f4')	
+p.hotkey('altleft', 'f4')

@@ -1,20 +1,18 @@
 #! python3
 import pyautogui as p
-import time
-import datetime
-import subprocess
-import sys
-import os
+import time, datetime, subprocess, sys, os
 
 # Globals
 
 p.PAUSE = 1
-# This is the global pause interval between pyautogui commands; 1 is equal to 1 second, 2 equals 2 seconds, and so on. 
+# This is the global pause interval between pyautogui commands; 
+# 1 is equal to 1 second, 2 equals 2 seconds, and so on. 
 # Documentation says this can't go below 1; no reason to have it go below 1, anyway. 
 
 l = 'left' 
 # We're setting the letter 'l' equal to the string 'left' for the clk function. 
-# This way, when the clk function is used, the user doesn't have to type in 'left' with appropriate quotes every time.
+# This way, when the clk function is used, the user doesn't have to type in 'left' 
+# with appropriate quotes every time.
 
 insDate = datetime.date.today() 
 # Set up today's date so we can save and open documents with today's date in their file name.
@@ -22,10 +20,15 @@ insDate = datetime.date.today()
 scriptHome = sys.path[0]
 # Get where the script is so everything isn't so hardcoded
 
-#-----------------------------------------------------------------------------------------------------------------------------------
+relPath = os.path.expanduser('~')
+# Get the user's relative path (works for Windows and Linux)
 
-# Greg came up with this function as a workaround to deal with pyautogui's current issue with clicking not always working. 
-# The bug itself is due to a deprecated click event in Windows (noted by Mr. Sweigart himself and others on the library's Github:
+#---------------------------------------------------------------------------------------------------------------------
+
+# Greg came up with this function as a workaround to deal with pyautogui's 
+# current issue with clicking not always working. 
+# The bug itself is due to a deprecated click event in Windows 
+# (noted by Mr. Sweigart himself and others on the library's Github:
 # https://github.com/asweigart/pyautogui/issues/23 )
 def clk(x,y,b):
 	try:
@@ -33,9 +36,10 @@ def clk(x,y,b):
 	except FileNotFoundError:
 		pass
 		
-# Since we're going to be searching for files a lot in the file explorer, we need a function that jumps to the folder url bar, 
-# deletes the current file path, and appends the path supplied by the script into it		
-def fe(path):
+# Since we're going to be searching for files a lot in the file explorer, we need a function that 
+# jumps to the folder url bar, deletes the current file path, and appends the path supplied 
+# by the script into it		
+def explorer(path):
 	time.sleep(2)
 	p.press('f4')
 	p.hotkey('ctrlleft', 'a', 'del')
@@ -47,8 +51,9 @@ def imgPath(img):
 	path = os.path.join(scriptHome, 'elements\\' + img)
 	return path
 
-# Bundle together the image recognition commands: locate the image of the element, get the coordinates, click it. 
-# This definitely calls for a function as it's a script-critical repetiton.	
+# Bundle together the image recognition commands: locate the image of the element, 
+# get the coordinates, click it. This definitely calls for a function as it's a 
+# script-critical repetiton.	
 def locate(img):
 	btn = p.locateOnScreen(img)
 	btnX, btnY = p.center(btn)
@@ -70,7 +75,7 @@ overnight.
 '''
 
 # The chunk below is interacting with the file explorer to open the SQL query
-locate(imgPath('connect.png')) # Surprisingly, sending "enter" is less reliable than actually clicking the "connect" button
+locate(imgPath('connect.png')) # Sending "enter" is less reliable than actually clicking the "connect" button
 p.hotkey('ctrlleft', 'o')
 time.sleep(2)
 p.typewrite('quote follow-up notes 5') 
@@ -79,17 +84,17 @@ p.press('f5') # Run the query
 # End interaction with file explorer
 
 time.sleep(60)
-# Right now the New Business QFU query is huge. It can take up to and sometimes above a minute to return all of the fields. 
-# Until we shrink that query to the data we explicitly NEED for QFUs, this lengthy delay will stay
+# The New Business QFU query is STILL huge. It can take up to and sometimes above a minute to 
+# return all of the fields. At this point, I don't think he's going to clean the query :\
 locate(imgPath('selectAll.png')) # Want to get all of the column names as well for the spreadsheet
 time.sleep(2)
 p.hotkey('ctrlleft', 'shift', 'c')
 p.hotkey('altleft', 'f4')
 # Close MS SQL Management Studio
 
-#-----------------------------------------------------------------------------------------------------------------------------------
-# Open Excel and paste/save the results of the query
-# Wait two seconds for Excel to fully load, then paste the query results and move the arrow key up to get rid of the highlight
+#---------------------------------------------------------------------------------------------------------------------
+# Open Excel and paste/save the results of the query. Wait two seconds for Excel to fully load, 
+# then paste the query results and move the arrow key up to get rid of the highlight
 xlOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft Office\\Office14\\EXCEL.exe')
 time.sleep(2)
 p.hotkey('ctrlleft', 'v')
@@ -108,21 +113,21 @@ time.sleep(2)
 
 # Save the spreadsheet and close Excel
 p.hotkey('ctrlleft', 's')
-fe('[filepath]') # However, I don't like how I've got this folder path hardcoded. 
-#It doesn't feel like as big of an issue if it's going to be primarily on one computer, which means I can just py2exe 
-# it on that same computer, but just from a proper programming standpoint I don't like it.
+# It took some time away from the script to get the relative filepath part of it cooking
+explorer(relpath + '\\Documents\\Quote Follow Ups Archive') 
 locate(imgPath('excelFileName.png'))
 p.typewrite('Quote Follow Up for ' + insDate.strftime('%m-%d-%Y'))
 p.press('enter')
 p.hotkey('altleft', 'f4')
 
-#------------------------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------
 # Open Word and perform the mail merge
 # Wait two seconds for Word to fully load and open the Mail Merge document
 wordOpen = subprocess.Popen('C:\\Program Files (x86)\\Microsoft Office\\Office14\\WINWORD.exe')
 time.sleep(2)
 p.hotkey('ctrlleft', 'o')
-fe('[filepath]')# Again here, don't like the hardcoding.
+# TODO: Check for the specified folder; if it doesn't exist, throw an error and create the folder
+explorer(relpath + '\\Documents\\Quote Follow Ups Archive')
 locate(imgPath('wordOpenDoc.png'))
 p.typewrite('Mail Merge') 
 
@@ -132,7 +137,7 @@ locate(imgPath('wordYes.png'))
 locate(imgPath('mailings.png'))
 locate(imgPath('selectTo.png'))
 locate(imgPath('useList.png'))
-fe('[filepath]')
+explorer('[filepath]')
 locate(imgPath('listFileName.png'))	
 p.typewrite('Quote Follow Up for ' + insDate.strftime('%m-%d-%Y')) 
 p.press('enter')
@@ -145,8 +150,8 @@ locate(imgPath('merge.png'))
 locate(imgPath('send.png'))
 locate(imgPath('mergeOk.png'))
 
-time.sleep(25)
-# Wait a bit for all the emails to actually be sent out; comes into play when the QFUs for the day break into the high 
-# double-digits
+time.sleep(35) # Upped from 25 to 35 seconds
+# Wait a bit for all the emails to actually be sent out
+# The wait time gets really bad if there are over 80 emails to be sent
 p.hotkey('ctrlleft', 's')
 p.hotkey('altleft', 'f4')	
