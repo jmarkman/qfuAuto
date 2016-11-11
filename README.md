@@ -10,10 +10,7 @@ I'm trying to deprecate this script in favor of one that can make the database q
 *11/11/2016* - This meeting still hasn't happened :confused:
 
 # Updates
-1. ~~*9/26/2016* ~~
-- Initial post
-
-2. *11/11/2016*
+*11/11/2016*
 
 - I pried a chunk of it loose from hardcoding:
 
