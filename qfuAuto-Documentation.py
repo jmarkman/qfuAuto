@@ -78,13 +78,15 @@ overnight.
 locate(imgPath('connect.png')) # Sending "enter" is less reliable than actually clicking the "connect" button
 p.hotkey('ctrlleft', 'o')
 time.sleep(2)
-p.typewrite('quote follow-up notes 5') 
-p.press('enter') 
+p.typewrite('new and renewal qfu.sql') 
+# Updated query, added file extensions for all typed files because if the user has file name 
+# extensions visible in Windows, the program chokes and crashes
+p.press('enter')
 p.press('f5') # Run the query
 # End interaction with file explorer
 
 time.sleep(60)
-# The New Business QFU query is STILL huge. It can take up to and sometimes above a minute to 
+# The query is STILL huge in its newest iteration. It can take up to and sometimes above a minute to 
 # return all of the fields. At this point, I don't think he's going to clean the query :\
 locate(imgPath('selectAll.png')) # Want to get all of the column names as well for the spreadsheet
 time.sleep(2)
@@ -129,7 +131,7 @@ p.hotkey('ctrlleft', 'o')
 # TODO: Check for the specified folder; if it doesn't exist, throw an error and create the folder
 explorer(relpath + '\\Documents\\Quote Follow Ups Archive')
 locate(imgPath('wordOpenDoc.png'))
-p.typewrite('Mail Merge') 
+p.typewrite('Mail Merge.docm') 
 
 # This is all interacting with importing the Excel file we just made into Mail Merge
 p.press('enter')
@@ -139,7 +141,7 @@ locate(imgPath('selectTo.png'))
 locate(imgPath('useList.png'))
 explorer('[filepath]')
 locate(imgPath('listFileName.png'))	
-p.typewrite('Quote Follow Up for ' + insDate.strftime('%m-%d-%Y')) 
+p.typewrite('Quote Follow Up for ' + insDate.strftime('%m-%d-%Y') + ".xlsx") 
 p.press('enter')
 p.press('enter')
 
