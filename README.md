@@ -17,6 +17,7 @@ I'm trying to deprecate this script in favor of one that can make the database q
 The worst part about this is it took me a few months without thinking about the script to come back to it and realize I could use os.path.expanduser to get the userpath and just append "\\Documents\\blah" to access the user's Documents folder. However, I created a new problem for myself.
 
 *1/3/2017*
+
 There's still no meeting. Instead I got a new query that's even bigger. I'm either going to have to learn about using COM in Python or switch this over to C# and use the Microsoft Office .dlls to access Mail Merge that way.
 
 # Script issues
